@@ -1,0 +1,97 @@
+<div class="panel-body" *ngIf="userIsLoggedIn">
+    <!-- Le formGroup appelé ici est celui du component initialisé dans OnInit -->
+    <form [formGroup]="form" (ngSubmit)="createJob(form.value)">
+        <!-- On écoute le submit -->
+        <div class="row">
+            <div class="form-group col-sm-6 form-inside">
+                <div class="form-group col-sm-12">
+                    <label for="title" class="control-label">titre</label>
+                    <input type="text" name="title" class="form-control" placeholder="titre de votre annonce" formControlName="title" />
+                    <!-- formControlName permet d'associer propriété "name" du formBuilder à l'input name -->
+                </div>
+                <div class="form-group col-sm-12">
+                    <label for="company" class="control-label">entreprise</label>
+                    <input type="text" name="company" class="form-control" placeholder="nom de votre entreprise" formControlName="company" />
+                </div>
+                <div class="form-group col-sm-12">
+                    <label for="city" class="control-label">ville</label>
+                    <input type="text" name="city" class="form-control" placeholder="ville du poste proposé" formControlName="city" />
+                </div>
+                <div class="form-group col-sm-12">
+                    <label for="zipcode" class="control-label">code postal</label>
+                    <input type="text" name="zipcode" class="form-control" placeholder="code postal" formControlName="zipcode" />
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label for="description" class="control-label">description</label>
+                <textarea name="description" id="description" class="form-control" cols="30" rows="10" formControlName="description"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-3">
+                <label for="salary" class="control-label">salaire</label>
+                <input type="text" name="salary" id="salary" class="form-control" placeholder="salaire" formControlName="salary" />
+            </div>
+            <div class="form-group col-sm-3">
+                <label for="currency" class="control-label">devise</label>
+                <select name="currency" id="currency" class="form-control" formControlName="currency">
+                    <option *ngFor="let curr of currencies" [value]="curr.value">{{ curr.name }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label for="experience" class="control-label">expérience</label>
+                <select name="experience" formControlName="experience" class="form-control">
+                    <option *ngFor="let exp of experience" [value]="exp.value">{{ exp.name }}</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="status" class="control-label">statut</label>
+                <select name="status" formControlName="status" class="form-control">
+                    <option *ngFor="let status of statuses" [value]="status.value">{{ status.name }}</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="contract" class="control-label">contrat</label>
+                <select name="contract" class="form-control" formControlName="contract">
+                    <!-- Récupère la value du contractTypes -->
+                    <option *ngFor="let ct of contractTypes" [value]="ct.value">{{ ct.name }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label for="area" class="control-label">déplacements</label>
+                <!-- div générée dynamiquement, l'id généré correspond au label généré (clic sur label sélectionne bouton radio correpondant) -->
+                <div *ngFor="let area of areas">
+                    <input type="radio" [id]='"btn-" + area.value' name="area" [value]="area.value" formControlName="area" />
+                    <label [for]='"btn-" + area.value'>{{ area.name }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label for="startdate" class="control-label">date de démarrage</label>
+                <input type="date" class="form-control" name="startdate" formControlName="startdate" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-success">créer l'annonce</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="!userIsLoggedIn">
+    <h2>Création d'annonces réservée aux utilisateurs inscrits</h2>
+    <div>
+        <p>Vous devez être connecté pour créer une annonce.</p>
+        <p>
+            <a href="#" routerLink="/login">se connecter</a>
+            <span>ou</span>
+            <a href="#" routerLink="/register">créer un compte</a>
+        </p>
+    </div>
+</div>

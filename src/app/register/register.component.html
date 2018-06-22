@@ -1,0 +1,26 @@
+<div *ngIf="!isAuthenticated">
+	<h3>Créer un compte</h3>  
+	<form #registerForm="ngForm" (ngSubmit)="register(registerForm.value)">
+		<div class="row">
+			<div class="form-group col-sm-4">
+				<input type="text" class="form-control input-sm" ngModel name="email" placeholder="email" required />
+			</div>
+			<div class="form-group col-sm-4">
+				<input type="text" class="form-control input-sm" ngModel name="nickname" placeholder="pseudo" required />
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-sm-4">
+				<input type="password" class="form-control input-sm" ngModel name="password" placeholder="mot de passe" required />
+			</div>
+			<div class="form-group col-sm-4">
+				<input type="password" class="form-control input-sm" ngModel name="confirm-password" placeholder="confirmer le mot de passe" required />
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-sm-offset-6 col-sm-2">
+				<button type="submit" class="btn btn-success btn-sm" [disabled]="registerForm.invalid">se connecter</button>
+			</div>
+		</div>
+  	</form>
+</div>

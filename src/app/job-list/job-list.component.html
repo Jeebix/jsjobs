@@ -1,0 +1,14 @@
+<div class="panel panel-warning" *ngFor="let job of jobs">
+    <div class="panel-heading">
+        <!-- Crée 1 lien avec l'id du job dans l'url (crochets rouerLink car pas juste une string) -->
+        <h3 class="panel-title"><a href="#" [routerLink]="['/jobs', job.id]">{{ job.title }}</a></h3>
+        <div>{{ job.company }} - {{ job.city }} - {{ job.zipcode }}</div>
+    </div>
+    <div class="panel-body">
+        <p>{{ job.description }}</p>
+    </div>
+    <div class="panel-footer panel-warning clear">
+        <p>Parue il y a {{ job.publishdate | daysAgo }}</p>
+        <!-- Utilisation du pipe pour la librairie externe date-fns -->
+    </div>
+</div>
